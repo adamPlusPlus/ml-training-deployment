@@ -1,10 +1,10 @@
-# Symbolic Puzzle ML Training & Deployment
+# ML Training & Deployment Pipeline
 
-A machine learning system for training and deploying models that understand and generate symbolic logic patterns for puzzle generation.
+A complete machine learning training and deployment system demonstrating production-ready MLOps practices for model training, versioning, and API deployment.
 
 ## Overview
 
-This project provides a complete pipeline for training machine learning models on symbolic logic patterns and deploying them as production-ready inference APIs. The system processes symbolic logic representations and generates structured puzzle data.
+This project provides a complete pipeline for training machine learning models and deploying them as production-ready inference APIs. The system demonstrates best practices for model training, experiment tracking, versioning, and containerized deployment.
 
 ## Features
 
@@ -64,7 +64,7 @@ This project provides a complete pipeline for training machine learning models o
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd symbolic-puzzle-ml-training
+cd ml-training-deployment
 
 # Install dependencies
 pip install -r requirements.txt
@@ -105,7 +105,7 @@ import requests
 response = requests.post(
     "http://localhost:8000/api/predict",
     json={
-        "input": "symbolic_logic_pattern_here"
+        "input": "your_input_data_here"
     }
 )
 
@@ -113,25 +113,24 @@ response = requests.post(
 response = requests.post(
     "http://localhost:8000/api/predict/batch",
     json={
-        "inputs": ["pattern1", "pattern2", "pattern3"]
+        "inputs": ["input1", "input2", "input3"]
     }
 )
 ```
 
 ## Model Architecture
 
-The system uses transformer-based architectures to understand symbolic logic patterns:
+The system supports flexible model architectures:
 
-- **Input Processing**: Symbolic logic patterns encoded as sequences
-- **Encoder**: Transformer encoder for pattern understanding
-- **Decoder**: Generates structured puzzle representations
-- **Output**: Validated puzzle data structures
+- **Input Processing**: Data preprocessing and feature engineering
+- **Model**: Configurable neural network architectures
+- **Output**: Validated prediction results
 
 ## Training Data
 
-Training data consists of:
-- Symbolic logic patterns
-- Corresponding puzzle representations
+Training data structure:
+- Raw data files
+- Preprocessed datasets
 - Validation metadata
 - Quality scores
 
@@ -149,10 +148,10 @@ Models are versioned using MLflow:
 
 ```bash
 # Build image
-docker build -t symbolic-puzzle-ml:latest .
+docker build -t ml-model:latest .
 
 # Run container
-docker run -p 8000:8000 symbolic-puzzle-ml:latest
+docker run -p 8000:8000 ml-model:latest
 ```
 
 ### Cloud Deployment
@@ -192,4 +191,3 @@ pytest tests/test_api.py
 ## License
 
 MIT License
-
