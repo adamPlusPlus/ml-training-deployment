@@ -24,40 +24,33 @@ This project provides a complete pipeline for training machine learning models a
 
 - **Containerization & Deployment**
   - Docker containerization with multi-stage builds
-  - Cloud deployment configurations
+  - Cloud deployment configurations (AWS, Azure, GCP)
   - Environment management
   - Resource optimization
 
-## Project Structure
+- **Security**
+  - Secrets management (AWS Secrets Manager)
+  - Data encryption (at rest and in transit)
+  - Network security configurations
 
-```
-.
-├── training/
-│   ├── models/          # Model architectures
-│   ├── data/            # Training data and preprocessing
-│   ├── scripts/         # Training scripts
-│   └── configs/         # Training configurations
-├── api/
-│   ├── app.py          # FastAPI application
-│   ├── models/         # API models and schemas
-│   └── inference/      # Inference logic
-├── docker/
-│   ├── Dockerfile
-│   └── docker-compose.yml
-├── tests/
-│   ├── test_training.py
-│   └── test_api.py
-├── requirements.txt
-└── README.md
-```
+- **Monitoring & Cost Tracking**
+  - AWS cost monitoring
+  - Custom metrics
+  - Cost optimization strategies
 
-## Getting Started
+- **LLM Integration**
+  - Hugging Face model deployment
+  - LLM inference endpoints
+  - Token usage and cost tracking
+
+## Quick Start
 
 ### Prerequisites
 
 - Python 3.9+
 - Docker (optional, for containerized deployment)
 - MLflow (for experiment tracking)
+- AWS CLI (for cloud deployment)
 
 ### Installation
 
@@ -68,9 +61,6 @@ cd ml-training-deployment
 
 # Install dependencies
 pip install -r requirements.txt
-
-# Set up MLflow tracking
-mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
 
 ### Training a Model
@@ -118,29 +108,18 @@ response = requests.post(
 )
 ```
 
-## Model Architecture
+## Project Structure
 
-The system supports flexible model architectures:
-
-- **Input Processing**: Data preprocessing and feature engineering
-- **Model**: Configurable neural network architectures
-- **Output**: Validated prediction results
-
-## Training Data
-
-Training data structure:
-- Raw data files
-- Preprocessed datasets
-- Validation metadata
-- Quality scores
-
-## Model Versioning
-
-Models are versioned using MLflow:
-- Automatic versioning on training completion
-- Metadata tracking (hyperparameters, metrics, artifacts)
-- Model registry for production models
-- Easy rollback to previous versions
+```
+ml-training-deployment/
+├── training/          # Model training scripts and configurations
+├── api/              # FastAPI inference API
+├── infrastructure/   # Terraform and Docker configurations
+├── security/         # Security implementations
+├── monitoring/       # Cost tracking and metrics
+├── tests/            # Unit and integration tests
+└── docs/             # Documentation (including learning guide)
+```
 
 ## Deployment
 
@@ -156,19 +135,20 @@ docker run -p 8000:8000 ml-model:latest
 
 ### Cloud Deployment
 
-The project includes configurations for:
-- AWS (EC2, ECS, Lambda)
-- Azure (Container Instances, App Service)
-- GCP (Cloud Run, Compute Engine)
+The project includes Terraform configurations for:
+- AWS (ECS, SageMaker)
+- Azure (Container Instances)
+- GCP (Cloud Run)
 
-See deployment documentation in `docs/deployment/` for platform-specific instructions.
+See `docs/learn.md` for detailed deployment instructions.
 
-## Monitoring
+## Documentation
 
-The API includes built-in monitoring endpoints:
-- `/health` - Health check
-- `/metrics` - Performance metrics
-- `/api/model/info` - Model metadata
+- **[Learning Guide](docs/learn.md)** - Complete step-by-step learning path
+- [AWS Deployment Guide](docs/aws_deployment.md)
+- [Terraform Guide](docs/terraform_guide.md)
+- [Security Guide](docs/security_guide.md)
+- [LLM Integration Guide](docs/llm_integration.md)
 
 ## Testing
 
@@ -180,13 +160,6 @@ pytest tests/
 pytest tests/test_training.py
 pytest tests/test_api.py
 ```
-
-## Documentation
-
-- [Training Guide](docs/training.md)
-- [API Documentation](docs/api.md)
-- [Deployment Guide](docs/deployment.md)
-- [Model Architecture](docs/architecture.md)
 
 ## License
 
