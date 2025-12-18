@@ -24,7 +24,9 @@ This project provides a complete pipeline for training machine learning models a
 
 - **Containerization & Deployment**
   - Docker containerization with multi-stage builds
-  - Cloud deployment configurations (AWS, Azure, GCP)
+  - Cloud deployment configurations (AWS ECS, Azure, GCP)
+  - AWS Lambda serverless deployment
+  - API Gateway integration
   - Environment management
   - Resource optimization
 
@@ -33,15 +35,38 @@ This project provides a complete pipeline for training machine learning models a
   - Data encryption (at rest and in transit)
   - Network security configurations
 
-- **Monitoring & Cost Tracking**
-  - AWS cost monitoring
-  - Custom metrics
-  - Cost optimization strategies
+- **Monitoring & Basic Cost Tracking**
+  - Basic AWS cost monitoring
+  - Custom metrics and health checks
+  - Resource usage tracking
+  - *Note: Detailed cost analysis and optimization strategies are covered in Project 3 (Production ML Platform)*
+
+- **Workflow Orchestration**
+  - AWS Step Functions for ML pipelines
+  - Automated training workflows
+  - Model validation and promotion pipelines
+  - Error handling and retries
+  - SNS notifications
 
 - **LLM Integration**
   - Hugging Face model deployment
+  - AWS Bedrock managed LLM service (Claude, Titan, Jurassic)
+  - Streaming LLM responses
   - LLM inference endpoints
   - Token usage and cost tracking
+  - Multi-model support
+
+- **Large-Scale Data Processing** (Optional)
+  - Apache Spark integration
+  - Distributed feature engineering
+  - Spark MLlib model training
+  - MLflow integration with Spark
+
+- **Model Optimization**
+  - ONNX model conversion and serving
+  - TensorRT optimization for GPU inference
+  - vLLM for high-performance LLM serving
+  - Performance benchmarking and comparison
 
 ## Quick Start
 
@@ -136,9 +161,36 @@ docker run -p 8000:8000 ml-model:latest
 ### Cloud Deployment
 
 The project includes Terraform configurations for:
-- AWS (ECS, SageMaker)
-- Azure (Container Instances)
-- GCP (Cloud Run)
+- **AWS**
+  - ECS (containerized deployment)
+  - Lambda (serverless deployment)
+  - Step Functions (workflow orchestration)
+  - SageMaker (managed training)
+  - API Gateway (Lambda integration)
+- **Azure** (Container Instances)
+- **GCP** (Cloud Run)
+
+#### Serverless Deployment (Lambda)
+
+```bash
+# Deploy Lambda function
+cd infrastructure/terraform/aws
+terraform apply -target=aws_lambda_function.ml_inference
+
+# Test Lambda via API Gateway
+curl -X POST https://your-api-id.execute-api.region.amazonaws.com/predict \
+  -H "Content-Type: application/json" \
+  -d '{"input": [1.0, 2.0, 3.0]}'
+```
+
+#### Workflow Orchestration (Step Functions)
+
+```bash
+# Start ML training pipeline
+aws stepfunctions start-execution \
+  --state-machine-arn <state-machine-arn> \
+  --input '{"data_bucket": "my-bucket", "data_key": "data.csv"}'
+```
 
 See `docs/learn.md` for detailed deployment instructions.
 
@@ -149,6 +201,10 @@ See `docs/learn.md` for detailed deployment instructions.
 - [Terraform Guide](docs/terraform_guide.md)
 - [Security Guide](docs/security_guide.md)
 - [LLM Integration Guide](docs/llm_integration.md)
+- [Lambda Deployment Guide](docs/lambda_deployment.md)
+- [Step Functions Guide](docs/step_functions_guide.md)
+- [Bedrock Integration Guide](docs/bedrock_guide.md)
+- [Model Optimization Guide](docs/model_optimization_guide.md)
 
 ## Testing
 
